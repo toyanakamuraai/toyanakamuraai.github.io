@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中村 柊也 / Toya Nakamura</title>
+<meta name="description" content="Physical AI developer. Training VLA models to run real robot arms.">
+<meta property="og:title" content="中村 柊也 / Toya Nakamura">
+<meta property="og:description" content="Physical AI 開発 / Physical AI Developer">
+<meta property="og:type" content="profile">
+<meta name="theme-color" content="#101218">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #101218;
+    --panel: #161a24;
+    --line: #262b38;
+    --text: #f2f3f6;
+    --body: #d3d8e3;
+    --sub: #9aa1b0;
+    --accent: #6ebeff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+
+  /* 名刺と同じ波線 */
+  .hero { position: relative; overflow: hidden; padding: 120px 0 96px; }
+  .hero svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 80%; pointer-events: none; }
+  .hero .wrap { position: relative; }
+  .kana { color: var(--sub); font-size: 15px; letter-spacing: .14em; }
+  h1 { font-size: clamp(40px, 8vw, 68px); font-weight: 700; letter-spacing: .04em; line-height: 1.2; }
+  h1 ruby { ruby-position: over; ruby-align: center; }
+  h1 rt { font-size: 15px; font-weight: 400; color: var(--sub); letter-spacing: .14em; padding-bottom: 6px; }
+  .roma { color: var(--sub); font-size: clamp(15px, 2vw, 19px); letter-spacing: .2em; margin-top: 8px; }
+  .title { color: var(--accent); font-weight: 700; font-size: clamp(19px, 2.4vw, 24px); margin-top: 32px; }
+  .title span { color: var(--sub); font-weight: 400; font-size: .7em; margin-left: 12px; }
+  .about { margin-top: 28px; max-width: 640px; font-size: clamp(17px, 2vw, 20px); color: var(--body); }
+  .about .en { display: block; color: var(--sub); font-size: .78em; margin-top: 4px; }
+
+  /* PC: 3D を名前の後ろまで広げ、左端は背景に溶かす */
+  .hero { min-height: 640px; display: flex; align-items: center; }
+  .hero .wrap.hero-grid { position: static; width: 100%; }
+  .hero-text { position: relative; z-index: 1; max-width: 560px; }
+  .arm { position: absolute; top: 0; right: 0; bottom: 0; width: 68%;
+         -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%);
+                 mask-image: linear-gradient(to right, transparent 0%, #000 34%); }
+  .arm canvas { display: block; width: 100% !important; height: 100% !important; }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 120px;
+                 background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+  .hud { position: absolute; right: 28px; top: 40px; z-index: 2; font-family: "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+         font-size: 13px; line-height: 1.6; color: #cfe6ff; background: rgba(16,18,24,.55); border: 1px solid rgba(110,190,255,.25);
+         border-radius: 10px; padding: 10px 14px; min-width: 260px; backdrop-filter: blur(4px); }
+  .hud-k { font-size: 10px; letter-spacing: .2em; color: var(--sub); text-transform: uppercase; }
+  .hud-c { animation: blink 1s steps(1) infinite; color: var(--accent); margin-left: 1px; }
+  .hud-s { font-size: 11px; color: #7fd1ff; min-height: 1.6em; }
+  .hud-s.warn { color: #ffcf6e; }
+  @keyframes blink { 50% { opacity: 0; } }
+  section { border-top: 1px solid var(--line); padding: 56px 0; }
+  h2 { font-size: 13px; letter-spacing: .24em; color: var(--sub); font-weight: 600; margin-bottom: 24px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 32px; }
+  .card h3 { font-size: 21px; font-weight: 700; line-height: 1.5; }
+  .card .en { color: var(--sub); font-size: 14px; margin-top: 2px; }
+  .card p.body { margin-top: 16px; color: var(--body); }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tags li { list-style: none; border: 1px solid var(--line); background: rgba(255,255,255,.03); border-radius: 999px; padding: 3px 14px; font-size: 13px; color: #c6ccd8; }
+
+  dl { display: grid; grid-template-columns: 120px 1fr; row-gap: 18px; column-gap: 20px; }
+  dt { color: var(--sub); font-size: 15px; padding-top: 1px; }
+  dd { font-size: 17px; overflow-wrap: anywhere; }
+  dd small { display: block; color: var(--sub); font-size: 14px; }
+  a { color: var(--text); text-decoration: none; border-bottom: 1px solid rgba(110,190,255,.45); transition: border-color .2s, color .2s; }
+  a:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--sub); font-size: 13px; }
+
+  @media (max-width: 760px) {
+    .hero { display: block; min-height: 0; }
+    .hero-text { max-width: none; }
+    .arm { position: relative; width: auto; height: 340px; margin: 8px -20px 0;
+           -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+                   mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%); }
+    .hero::after { display: none; }
+    .hud { right: 16px; top: 8px; min-width: 0; font-size: 12px; }
+    .wrap { padding: 0 20px; }
+    .hero { padding: 72px 0 32px; }
+    .cards { grid-template-columns: 1fr; gap: 16px; }
+    .card { padding: 24px; }
+    dl { grid-template-columns: 84px 1fr; }
+    section { padding: 44px 0; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+      <h1>中村 柊也</h1>
+      <p class="roma">NAKAMURA TOYA</p>
+      <p class="title">Physical AI 開発<span>Physical AI Developer</span></p>
+      <p class="about">AI と制御工学の両方から、ロボットを思いどおりに動かすことに取り組んでいます。<span class="en">Making robots move as intended — through both AI and control engineering.</span></p>
+      </div>
+      <div class="arm" id="arm" role="img" aria-label="物を掴んで運ぶロボットアームの 3D"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>FOCUS</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>ロボットアームに作業を教える AI</h3>
+          <p class="en">VLA for robot arms</p>
+          <p class="body">協働ロボットアームに VLA（視覚・言語・動作の AI）を載せ、ピッキングや仕分けなどの作業を覚えさせています。人の操作によるデモの収集から、学習、実機での評価、推論の高速化まで一通り手がけています。</p>
+          <ul class="tags"><li>Physical AI</li><li>VLA</li><li>Imitation Learning</li><li>Real-time Inference</li></ul>
+        </div>
+        <div class="card">
+          <h3>データから PID を設計する制御</h3>
+          <p class="en">Data-driven PID design</p>
+          <p class="body">制御対象のモデルを作らず、実験データから PID のゲインを決める手法（FRIT / E-FRIT）に取り組んでいます。感度関数の制約で安定性の余裕を保ちながら、2 自由度・非整数階 PID の 2 段階調整を扱っています。</p>
+          <ul class="tags"><li>Control Engineering</li><li>Data-driven Control</li><li>FRIT / E-FRIT</li><li>Fractional-order PID</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>EDUCATION</h2>
+      <dl>
+        <dt>University</dt>
+        <dd>兵庫県立大学 工学部 機械・材料工学科 4 年<small>University of Hyogo, Mechanical and Materials Engineering</small></dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>CONTACT</h2>
+      <dl>
+        <dt>Mail</dt>
+        <dd><a href="mailto:toya.nakamura.ai@gmail.com">toya.nakamura.ai@gmail.com</a></dd>
+        <dt>X</dt>
+        <dd><a href="https://x.com/toyanakamuraai" rel="me">@toyanakamuraai</a></dd>
+        <dt>YouTube</dt>
+        <dd><a href="https://www.youtube.com/@toyanakamuraai" rel="me">Hiiragi AI</a><small>@toyanakamuraai</small></dd>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/toyanakamuraai" rel="me">toyanakamuraai</a></dd>
+        <dt>Hugging Face</dt>
+        <dd><a href="https://huggingface.co/toyanakamuraai" rel="me">toyanakamuraai</a></dd>
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/in/toyanakamuraai" rel="me">in/toyanakamuraai</a></dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Toya Nakamura</div>
+  </footer>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="arm.js"></script>
+</body>
+</html>
